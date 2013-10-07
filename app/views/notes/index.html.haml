@@ -1,20 +1,16 @@
 %h1 Listing notes
 
-%table
-  %tr
-    %th Title
-    %th Body
-    %th
-    %th
-    %th
-
-  - @notes.each do |note|
-    %tr
-      %td= note.title
-      %td= note.body
-      %td= link_to 'Show', note
-      %td= link_to 'Edit', edit_note_path(note)
-      %td= link_to 'Destroy', note, :method => :delete, :data => { :confirm => 'Are you sure?' }
+- @notes.each do |note|
+  %p
+    = note.title
+    = note.body
+    = link_to 'Show', note
+    = link_to 'Edit', edit_note_path(note)
+    = link_to 'Destroy', note, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  %p
+    Lists this note is in:
+    = note.lists.count
+    = note.lists.to_a
 
 %br
 

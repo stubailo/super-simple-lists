@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%h1 List #{@list.name}
+
+- @list.notes.each do |note|
+  .note
+    .title
+      %strong= note.title
+    .body
+      = note.body
+    .actions
+      = link_to "edit", edit_list_note_path(@list, note)
+      = link_to "delete", list_note_path(@list, note), :method => :delete, :data => {:confirm => "are you sure?"}
+
+  %br
+
+- if can? :edit, @list
+  = link_to 'New note in this list', new_list_note_path(@list)
+  = link_to 'Edit list', edit_list_path(@list)
+
+- if can? :permissions, @list
+  = link_to "Permissions", permissions_list_path(@list)
+
+= link_to 'All lists', lists_path

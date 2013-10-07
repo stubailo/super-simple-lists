@@ -1,0 +1,12 @@
+%h3 Owners
+%ul
+  - @list.owners.each do |user|
+    %li= user.email
+%h3 Editors
+%ul
+  - @list.editors.each do |user|
+    %li= user.email
+%h3 Readers
+%ul
+  - @list.readers.each do |user|
+    %li= user.email

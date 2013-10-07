@@ -58,3 +58,5 @@ gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
                                 :github => 'anjlab/bootstrap-rails'
 gem 'haml-rails'
 
+gem 'devise'
+gem 'cancan'

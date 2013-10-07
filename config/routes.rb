@@ -1,7 +1,18 @@
 Notes::Application.routes.draw do
-  resources :notes
+  devise_for :users
+  
+  resources :lists do
+    resources :notes, :except => [:show, :index]
+    member do
+      get "permissions"
+    end
 
-  root "notes#index"
+    collection do
+      get "index_fancy"
+    end
+  end
+
+  root "lists#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
