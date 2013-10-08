@@ -7,11 +7,13 @@ class ApplicationController < ActionController::Base
 
   protected
     
+    # rescue from cancan error
     def access_denied
       if current_user
-        redirect_to root_path, notice: "You weren't authorized to #{params[:action]} in #{params[:controller]}"
+        redirect_to root_path, error: "you weren't authorized to #{params[:action]} in #{params[:controller]}"
       else
-        redirect_to new_user_session_path, notice: "Please log in to access your lists!"
+        # the problem is almost certainly lack of login
+        redirect_to new_user_session_path, notice: "please log in to access your lists!"
       end
     end
 

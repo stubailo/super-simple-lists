@@ -1,39 +1,54 @@
-body.fancy {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  flex: 1;
-
-  .header {
-    background: #ccc;
-    flex-grow: 0;
-    padding: 10px;
+body.simple {
+  .alert {
+    margin-top: 10px;
   }
 
-  .fancy_dashboard {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: stretch;
+  .header {
+    background: #444;
+    padding: 5px 10px;
+    color: white;
 
-    flex: 1;
-
-    .lists_sidebar {
-      flex-basis: 300px;
-      border-right: 1px solid #ccc;
-      overflow-y: auto;
+    a {
+      color: white;
     }
 
-    .list_container {
-      flex-grow: 2;
-      overflow-y: auto;
+    .home-button:hover {
+      text-decoration: none;
+
+      .home-link {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .footer {
+    margin-top: 30px;
+    padding: 5px 10px;
+  }
+
+
+  .main {
+    width: 400px;
+    margin: 0 auto;
+  }
+
+
+  .note {
+    margin-top: 30px;
+    border: 1px solid #ccc;
+
+    .title {
+      padding: 10px 10px 0 10px;
+    }
+
+    .body {
+      padding: 10px;
+    }
+
+    .actions {
+      font-size: 0.9em;
+      border-top: #ddd solid 1px;
+      padding: 5px 10px;
     }
   }
 }

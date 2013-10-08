@@ -6,11 +6,33 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags 
 
-  %body
+  %body.simple
     .header
-      - if current_user
-        Logged in as #{current_user.email}, #{link_to "log out", destroy_user_session_path, :method => :delete}
-      - else
-        = link_to "Log in", new_user_session_path
+      .main
+        - if current_user
+          = link_to root_path, :class => "home-button" do
+            %span.glyphicon.glyphicon-home
+            %span.home-link
+              home
+          .pull-right
+            = link_to destroy_user_session_path, :method => :delete do
+              log out
+              = current_user.email
+        - else
+          get ready to make some lists!
 
-    = yield
+    .main
+      -if notice
+        .alert.alert-success
+          = notice
+      -if alert
+        .alert.alert-warning
+          = alert
+
+      = yield
+
+    .footer
+      .main
+        %hr
+        lists made by
+        = link_to "sashko stubailo", "http://github.com/stubailo"

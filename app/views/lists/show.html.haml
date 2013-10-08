@@ -1,24 +1,36 @@
-%p#notice= notice
 
-%h1 List #{@list.name}
-
-- @list.notes.each do |note|
-  .note
-    .title
-      %strong= note.title
-    .body
-      = note.body
-    .actions
-      = link_to "edit", edit_list_note_path(@list, note)
-      = link_to "delete", list_note_path(@list, note), :method => :delete, :data => {:confirm => "are you sure?"}
-
-  %br
+%h1 #{@list.name}
 
 - if can? :edit, @list
-  = link_to 'New note in this list', new_list_note_path(@list)
-  = link_to 'Edit list', edit_list_path(@list)
+  = link_to new_list_note_path(@list), :class => "btn btn-sm btn-success" do
+    %span.glyphicon.glyphicon-plus
+    add note
 
-- if can? :permissions, @list
-  = link_to "Permissions", permissions_list_path(@list)
+- if @notes.empty?
+  %hr
+  no notes yet!
+  %br
+  %br
 
-= link_to 'All lists', lists_path
+- unless @notes.empty?
+  - @notes.each do |note|
+    .note
+      .title
+        %strong= note.title
+      .body
+        = note.body
+      .actions
+        .pull-right
+          = link_to "edit", edit_list_note_path(@list, note)
+          = link_to "delete", list_note_path(@list, note), :method => :delete, :data => {:confirm => "are you sure?"}
+        %span.glyphicon.glyphicon-edit
+        #{time_ago_in_words note.updated_at} ago by #{note.last_editor}
+
+- if can? :edit, @list
+  %br
+  .edit_actions
+    = link_to 'edit list name', edit_list_path(@list)
+
+    - if can? :permissions, @list
+      |
+      = link_to "permissions", permissions_list_path(@list)

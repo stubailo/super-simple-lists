@@ -1,12 +1,12 @@
 = form_for @list do |f|
   - if @list.errors.any?
-    #error_explanation
+    #error_explanation.alert.alert-danger
       %h2= "#{pluralize(@list.errors.count, "error")} prohibited this list from being saved:"
       %ul
         - @list.errors.full_messages.each do |msg|
           %li= msg
-  = f.label :name
-  = f.text_field :name
+  .form-group
+    = f.text_field :name, :class => "form-control", :placeholder => "name"
 
   .actions
-    = f.submit 'Save'
+    = f.submit 'save list', :class => "btn btn-success"

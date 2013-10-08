@@ -1,15 +1,28 @@
-%h1 Listing lists
+%h1
+  lists
+  .pull-right
+    = link_to new_list_path, :class => "btn btn-success" do
+      %span.glyphicon.glyphicon-plus
+      new list
 
-- @lists.each do |list|
-  = list.name
-  #{list.notes.count} notes
-  = link_to 'Show', list
-  - if can? :edit, list
-    = link_to 'Edit', edit_list_path(list)
-    = link_to 'New note in this list', new_list_note_path(list)
-  - if can? :delete, list
-    = link_to 'Destroy', list, :method => :delete, :data => { :confirm => 'Are you sure?' }
+%hr
 
-  %br
-
-= link_to 'New List', new_list_path
+- if @lists.any?
+  - @lists.each do |list|
+    %h3= link_to list.name, list
+    #{pluralize list.notes.count, "note"}
+    
+    - can_edit = can? :edit, list
+    - can_delete = can? :delete, list
+    
+    - if can_edit or can_delete
+      - if can? :edit, list
+        |
+        = link_to 'edit', edit_list_path(list)
+        |
+        = link_to 'add note', new_list_note_path(list)
+      - if can? :delete, list
+        |
+        = link_to 'delete', list, :method => :delete, :data => { :confirm => 'Are you sure?' }
+- else
+  %p no lists yet!

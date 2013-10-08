@@ -6,11 +6,11 @@
         - @note.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :body
-    = f.text_area :body
-  .actions
-    = f.submit 'Save'
+  .form-group
+    = f.label :title, :class => "sr-only"
+    = f.text_field :title, :class => "form-control", :placeholder => "title"
+  .form-group
+    = f.label :body, :class => "sr-only"
+    = f.text_area :body, :class => "form-control", :placeholder => "body"
+
+  = f.submit 'save note', :class => "btn btn-success"

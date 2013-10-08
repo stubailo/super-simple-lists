@@ -16,6 +16,9 @@ class NotesController < ApplicationController
   def create
     @note = @list.notes.new(note_params)
 
+    # keep track of who edited the note last for convenience
+    @note.last_editor = current_user.email
+
     respond_to do |format|
       if @note.save
         format.html { redirect_to @note.list, notice: 'Note was successfully created.' }
@@ -30,6 +33,9 @@ class NotesController < ApplicationController
   # PATCH/PUT /notes/1
   # PATCH/PUT /notes/1.json
   def update
+    # keep track of who edited the note last for convenience
+    @note.last_editor = current_user.email
+
     respond_to do |format|
       if @note.update(note_params)
         format.html { redirect_to @list, notice: 'Note was successfully updated.' }
@@ -57,6 +63,7 @@ class NotesController < ApplicationController
       @note = Note.find(params[:id])
     end
 
+    # this is a nested route so it will always have a list id
     def set_list
       @list = List.find(params[:list_id])
     end

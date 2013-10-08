@@ -1,5 +1,6 @@
-%h1 Editing note
+%h1 editing note in #{@list.name}
 
 = render 'form'
 
-= link_to 'Back', list_path(@list)
+%br
+= link_to 'cancel', list_path(@list)

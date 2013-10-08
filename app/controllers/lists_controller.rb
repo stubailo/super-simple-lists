@@ -1,5 +1,9 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy, :permissions]
+  before_action :set_list, only: [:show, :edit, :update, :destroy, 
+    :permissions, 
+    :add_permission, 
+    :remove_permission
+  ]
 
   # get /lists
   # get /lists.json
@@ -20,6 +24,7 @@ class ListsController < ApplicationController
   # GET /lists/1.json
   def show
     authorize! :show, @list
+    @notes = @list.notes.order("updated_at DESC")
   end
 
   # GET /lists/new
@@ -31,6 +36,59 @@ class ListsController < ApplicationController
   # GET /lists/1/permissions
   def permissions
     authorize! :permissions, @list
+  end
+  
+  # POST /lists/1/permissions
+  def add_permission
+    authorize! :permissions, @list
+    user = User.find_by_email(params[:email])
+    level = params[:level]
+
+    # check if user exists
+    if not user
+      redirect_to permissions_list_path(@list), :alert => "user with email #{params[:email]} doesn't exist"
+
+    # check if permissions level is valid
+    elsif not ["owner", "edit", "read"].include? level
+      redirect_to permissions_list_path(@list), :alert => "invalid permissions level: #{level}"
+
+    # make sure a list always has an owner
+    elsif @list.owners.include? user and @list.owners.count == 1
+      redirect_to permissions_list_path(@list), :alert => "can't remove the only owner"
+
+    # add the permissions!
+    else
+
+      # remove any other permissions the user may have had to avoid duplicates
+      @list.users.delete user
+
+      # see the list model file to see how the syntax below works
+      case level
+      when "owner"
+        @list.owners << user
+      when "edit"
+        @list.editors << user
+      when "read"
+        @list.readers << user
+      end
+
+      redirect_to permissions_list_path(@list), :notice => "added #{params[:email]} with #{level} permissions"
+    end
+  end
+
+  # DELETE /lists/1/permissions
+  def remove_permission
+    authorize! :permissions, @list
+    user = User.find_by_email(params[:email])
+
+    # make sure user exists
+    if not user
+      redirect_to permissions_list_path(@list), :alert => "user with email #{params[:email]} doesn't exist"
+    else
+      # remove the user from the list
+      @list.users.delete user
+      redirect_to permissions_list_path(@list), :notice => "removed permissions for #{user.email}"
+    end
   end
 
   # GET /lists/1/edit

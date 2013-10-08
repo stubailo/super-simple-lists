@@ -5,6 +5,8 @@ Notes::Application.routes.draw do
     resources :notes, :except => [:show, :index]
     member do
       get "permissions"
+      post "permissions" => :add_permission
+      delete "permissions" => :remove_permission
     end
 
     collection do

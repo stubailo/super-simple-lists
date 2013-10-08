@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131007044442) do
+ActiveRecord::Schema.define(version: 20131007230016) do
 
   create_table "list_permissions", force: true do |t|
     t.integer  "list_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20131007044442) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "list_id"
+    t.string   "last_editor"
   end
 
   create_table "users", force: true do |t|

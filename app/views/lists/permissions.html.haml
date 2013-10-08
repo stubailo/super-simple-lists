@@ -1,12 +1,53 @@
-%h3 Owners
-%ul
+%h2
+  permissions for
+  = @list.name
+
+.links
+  = link_to "back to list", @list
+
+%hr
+
+%h3 owners
+%p owners have complete power over a list and list permissions
+- only_one_owner = @list.owners.count == 1 # don't show remove links on owners
+%ul.list-unstyled.well.well-sm
   - @list.owners.each do |user|
-    %li= user.email
-%h3 Editors
-%ul
+    %li
+      = user.email
+      - if not only_one_owner
+        = link_to "remove", permissions_list_path(@list, :email => user.email), :method => :delete
+
+= form_tag permissions_list_path(@list), :class => "form-inline row" do
+  .form-group.col-xs-9
+    = text_field_tag :email, "", :class => "form-control input-sm", :placeholder => "email"
+  = hidden_field_tag :level, "owner"
+  = submit_tag "add owner", :class => "btn btn-default btn-sm col-xs-3"
+
+%h3 editors
+%p editors can create/edit/delete notes and change the list name
+%ul.list-unstyled.well.well-sm
+  - if @list.editors.empty?
+    .text-muted
+      no editors yet
   - @list.editors.each do |user|
-    %li= user.email
-%h3 Readers
-%ul
+    %li
+      = user.email
+      = link_to "remove", permissions_list_path(@list, :email => user.email), :method => :delete
+= form_tag permissions_list_path(@list), :class => "form-inline row" do
+  .form-group.col-xs-9
+    = text_field_tag :email, "", :class => "form-control input-sm", :placeholder => "email"
+  = hidden_field_tag :level, "edit"
+  = submit_tag "add editor", :class => "btn btn-default btn-sm col-xs-3"
+%h3 readers
+%p readers can only read notes
+%ul.list-unstyled.well.well-sm
+  - if @list.readers.empty?
+    .text-muted
+      no readers yet
   - @list.readers.each do |user|
     %li= user.email
+= form_tag permissions_list_path(@list), :class => "form-inline row" do
+  .form-group.col-xs-9
+    = text_field_tag :email, "", :class => "form-control input-sm", :placeholder => "email"
+  = hidden_field_tag :level, "read"
+  = submit_tag "add reader", :class => "btn btn-default btn-sm col-xs-3"
