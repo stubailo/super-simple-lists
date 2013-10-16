@@ -6,7 +6,7 @@ class Ability
 
       # list permissions
       can :read, List do |list|
-        list.readers.include? user
+        list.users.include? user
       end
 
       can :update, List do |list|

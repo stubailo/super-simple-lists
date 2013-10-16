@@ -1,16 +1,15 @@
 = form_for ([@list, @note]) do |f|
   - if @note.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@note.errors.count, "error")} prohibited this note from being saved:"
-      %ul
-        - @note.errors.full_messages.each do |msg|
-          %li= msg
+    #error_explanation.alert.alert-danger
+      - @note.errors.full_messages.each do |msg|
+        = msg.downcase
 
   .form-group
     = f.label :title, :class => "sr-only"
     = f.text_field :title, :class => "form-control", :placeholder => "title"
   .form-group
+    %span.help-block notes can contain #{link_to "markdown", "http://daringfireball.net/projects/markdown/syntax"}
     = f.label :body, :class => "sr-only"
-    = f.text_area :body, :class => "form-control", :placeholder => "body"
+    = f.text_area :body, :class => "form-control", :placeholder => "body", :lines => "30"
 
   = f.submit 'save note', :class => "btn btn-success"

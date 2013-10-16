@@ -1,14 +1,21 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: [:edit, :update, :destroy]
+  before_action :set_note, only: [:show, :edit, :update, :destroy]
   before_action :set_list
+
+  # GET /notes/show.json
+  def show
+    authorize! :show, @list
+  end
 
   # GET /notes/new
   def new
+    authorize! :edit, @list
     @note = Note.new
   end
 
   # GET /notes/1/edit
   def edit
+    authorize! :edit, @note
   end
 
   # POST /notes
@@ -19,8 +26,11 @@ class NotesController < ApplicationController
     # keep track of who edited the note last for convenience
     @note.last_editor = current_user.email
 
+    authorize! :create, @note
+
     respond_to do |format|
       if @note.save
+        @list.touch
         format.html { redirect_to @note.list, notice: 'Note was successfully created.' }
         format.json { render action: 'show', status: :created, location: @note }
       else
@@ -33,11 +43,14 @@ class NotesController < ApplicationController
   # PATCH/PUT /notes/1
   # PATCH/PUT /notes/1.json
   def update
+    authorize! :update, @note
+
     # keep track of who edited the note last for convenience
     @note.last_editor = current_user.email
 
     respond_to do |format|
       if @note.update(note_params)
+        @list.touch
         format.html { redirect_to @list, notice: 'Note was successfully updated.' }
         format.json { head :no_content }
       else
@@ -50,6 +63,9 @@ class NotesController < ApplicationController
   # DELETE /notes/1
   # DELETE /notes/1.json
   def destroy
+    authorize! :destroy, @note
+
+    @list.touch
     @note.destroy
     respond_to do |format|
       format.html { redirect_to @list }

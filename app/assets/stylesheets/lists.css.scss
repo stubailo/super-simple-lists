@@ -44,6 +44,10 @@ body.simple {
 
     .body {
       padding: 10px;
+
+      p:last-child {
+        margin-bottom: 0;
+      }
     }
 
     .actions {
@@ -51,5 +55,9 @@ body.simple {
       border-top: #ddd solid 1px;
       padding: 5px 10px;
     }
+  }
+
+  textarea {
+    font-family: monospace;
   }
 }

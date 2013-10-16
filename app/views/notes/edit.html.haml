@@ -1,5 +1,8 @@
 %h1 editing note in #{@list.name}
 
+= link_to "note", list_note_path(@list, @note), :id => "resource-link", :class => "hidden"
+#resource-updated-at.hidden=@note.updated_at.to_i
+
 = render 'form'
 
 %br

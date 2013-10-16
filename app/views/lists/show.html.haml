@@ -1,6 +1,9 @@
 
 %h1 #{@list.name}
 
+= link_to "list", @list, :id => "resource-link", :class => "hidden"
+#resource-updated-at.hidden= @list.updated_at.to_i
+
 - if can? :edit, @list
   = link_to new_list_note_path(@list), :class => "btn btn-sm btn-success" do
     %span.glyphicon.glyphicon-plus
@@ -13,12 +16,16 @@
   %br
 
 - unless @notes.empty?
+  - init_markdown
   - @notes.each do |note|
     .note
-      .title
-        %strong= note.title
-      .body
-        = note.body
+      - unless note.title.empty?
+        .title
+          %strong= note.title
+
+      - unless note.body.empty?
+        .body
+          = @markdown.render(note.body).html_safe
       .actions
         .pull-right
           = link_to "edit", edit_list_note_path(@list, note)

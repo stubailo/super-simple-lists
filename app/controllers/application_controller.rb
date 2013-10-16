@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
         redirect_to root_path, error: "you weren't authorized to #{params[:action]} in #{params[:controller]}"
       else
         # the problem is almost certainly lack of login
-        redirect_to new_user_session_path, notice: "please log in to access your lists!"
+        redirect_to new_user_session_path
       end
     end
 

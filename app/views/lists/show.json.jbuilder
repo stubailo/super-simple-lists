@@ -1,1 +1,1 @@
-json.extract! @list, :created_at, :updated_at
+json.updated_at @list.updated_at.to_i

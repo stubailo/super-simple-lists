@@ -2,7 +2,7 @@ Notes::Application.routes.draw do
   devise_for :users
   
   resources :lists do
-    resources :notes, :except => [:show, :index]
+    resources :notes, :except => [:index]
     member do
       get "permissions"
       post "permissions" => :add_permission

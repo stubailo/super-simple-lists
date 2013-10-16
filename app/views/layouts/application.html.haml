@@ -24,10 +24,10 @@
     .main
       -if notice
         .alert.alert-success
-          = notice
+          = notice.downcase
       -if alert
         .alert.alert-warning
-          = alert
+          = alert.downcase
 
       = yield
 

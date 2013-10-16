@@ -62,3 +62,5 @@ gem 'devise'
 gem 'cancan'
 
 gem 'angularjs-rails'
+
+gem 'redcarpet'
