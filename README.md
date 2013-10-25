@@ -1,12 +1,12 @@
 # Proj2
 
 + Full Name: Oleksandr Stubailo (sashko@mit.edu)
-+ Heroku Url: http://powerful-river-9277.herokuapp.com/
++ Heroku Url: http://super-simple-lists.herokuapp.com/
 
 
 Feature Descriptions
 ----------------------
-You must create an account to use Lists; once you sign in you can create as many lists as you want and then add notes to those lists.
+You must create an account to use the app.  Once you sign in you can create as many lists as you want and then add notes to those lists.
 
 If you are the owner of a list, you can manage permissions by going to a list page and clicking "permissions" at the bottom.  This will let you add and remove users that are allowed to read, edit, and manage the notes in your list.
 
