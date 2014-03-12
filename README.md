@@ -1,5 +1,5 @@
 # Super Simple Lists
-## Project for MIT Software Studio
+Project for MIT 6.170 Software Studio
 
 + Full Name: Oleksandr Stubailo (sashko@mit.edu)
 + Heroku Url: http://super-simple-lists.herokuapp.com/
