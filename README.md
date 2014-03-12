@@ -4,6 +4,7 @@
 + Full Name: Oleksandr Stubailo (sashko@mit.edu)
 + Heroku Url: http://super-simple-lists.herokuapp.com/
 
+![Screenshot](http://i.imgur.com/6W9D2GH.jpg)
 
 Feature Descriptions
 ----------------------
